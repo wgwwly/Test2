@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TweenManager : MonoBehaviour {
+public class TweenManager : MonoBehaviour
+{
 
     public static TweenManager Instance = null;
 
@@ -11,22 +12,24 @@ public class TweenManager : MonoBehaviour {
         Instance = this;
     }
     public List<TweenBase> tweenList = new List<TweenBase>();
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		for(int i = 0;i<tweenList.Count;i++)
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        for (int i = 0; i < tweenList.Count; i++)
         {
             tweenList[i].TweenUpdate();
         }
-	}
+    }
 
     public void AddTween(TweenBase tween)
     {
-        if(!tweenList.Contains(tween))
+        if (!tweenList.Contains(tween))
         {
             tweenList.Add(tween);
         }
@@ -34,11 +37,31 @@ public class TweenManager : MonoBehaviour {
 
     public void RemoveTween(TweenBase tween)
     {
-        tweenList.Remove(tween);
+        if (tweenList.Contains(tween))
+        {
+            tweenList.Remove(tween);
+        }    
     }
 
     public void KillTween(TweenBase tween)
     {
         RemoveTween(tween);
+    }
+
+    public void KillAllTween()
+    {
+
+    }
+
+    public void Clear()
+    {
+        for (int i = 0; i < tweenList.Count; i++)
+        {
+            if(tweenList[i] != null)
+            {
+                tweenList[i].Clear(false);
+            }
+        }
+        tweenList.Clear();
     }
 }

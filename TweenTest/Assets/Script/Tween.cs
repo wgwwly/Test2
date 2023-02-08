@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tween: TweenBase
+public class Tween : TweenBase
 {
 
     public void DoMove(Transform target, Vector3 endValue, float duration)
@@ -12,13 +12,10 @@ public class Tween: TweenBase
         base.endValue = endValue;
         base.curToValue = base.fromValue;
         base.duration = duration;
-        //base.xBaseValue = (endValue.x - base.fromValue.x) / duration;
-        //base.yBaseValue = (endValue.y - base.fromValue.y) / duration;
-        //base.zBaseValue = (endValue.z - base.fromValue.z) / duration;
 
-        base.xBaseValue = endValue.x;
-        base.yBaseValue = endValue.y;
-        base.zBaseValue = endValue.z;
+        base.xMoveValue = endValue.x - base.fromValue.x;
+        base.yMoveValue = endValue.y - base.fromValue.y;
+        base.zMoveValue = endValue.z - base.fromValue.z;
         base.tweenState = TweenState.Move;
     }
 
@@ -29,13 +26,10 @@ public class Tween: TweenBase
         base.endValue = endValue;
         base.curToValue = base.fromValue;
         base.duration = duration;
-        //base.xBaseValue = (endValue.x - base.fromValue.x) / duration;
-        //base.yBaseValue = (endValue.y - base.fromValue.y) / duration;
-        //base.zBaseValue = (endValue.z - base.fromValue.z) / duration;
 
-        base.xBaseValue = endValue.x;
-        base.yBaseValue = endValue.y;
-        base.zBaseValue = endValue.z;
+        base.xMoveValue = endValue.x - base.fromValue.x;
+        base.yMoveValue = endValue.y - base.fromValue.y;
+        base.zMoveValue = endValue.z - base.fromValue.z;
         base.tweenState = TweenState.Scale;
     }
 
@@ -58,7 +52,7 @@ public class Tween: TweenBase
             {
                 isStart = false;
                 isEnd = true;
-                if(OnComplete != null)
+                if (OnComplete != null)
                 {
                     OnComplete();
                 }

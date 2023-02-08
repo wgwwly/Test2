@@ -16,7 +16,13 @@ public class TweenTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            //TweenManager.Instance.RemoveTween(moveTween);
+            //moveTween.Clear();
+            TweenManager.Instance.Clear();
+        }
+        if (Input.GetKeyDown(KeyCode.A))
         {
             if (moveTween != null)
             {
@@ -25,28 +31,12 @@ public class TweenTest : MonoBehaviour
             testObj.transform.localPosition = Vector3.zero;
             moveTween = testObj.transform.DoMove(new Vector3(300, 500, 0), 5);
             moveTween.ease = Ease.Linear;
-            moveTween.OnComplete = () => {
-                Debug.Log("tween move complete");
-            };
-            moveTween.OnKill = () => {
-                Debug.Log("tween move kill");
-            };
-            moveTween.TweenStart();
-        }
-
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            if (moveTween != null)
+            moveTween.OnComplete = () =>
             {
-                moveTween.TweenKill();
-            }
-            testObj.transform.localPosition = Vector3.zero;
-            moveTween = testObj.transform.DoMove(new Vector3(300, 500, 0), 5);
-            moveTween.ease = Ease.EaseInSine;
-            moveTween.OnComplete = () => {
                 Debug.Log("tween move complete");
             };
-            moveTween.OnKill = () => {
+            moveTween.OnKill = () =>
+            {
                 Debug.Log("tween move kill");
             };
             moveTween.TweenStart();
@@ -60,11 +50,13 @@ public class TweenTest : MonoBehaviour
             }
             testObj.transform.localPosition = Vector3.zero;
             moveTween = testObj.transform.DoMove(new Vector3(300, 500, 0), 5);
-            moveTween.ease = Ease.EaseOutSine;
-            moveTween.OnComplete = () => {
+            moveTween.ease = Ease.EaseInSine;
+            moveTween.OnComplete = () =>
+            {
                 Debug.Log("tween move complete");
             };
-            moveTween.OnKill = () => {
+            moveTween.OnKill = () =>
+            {
                 Debug.Log("tween move kill");
             };
             moveTween.TweenStart();
@@ -78,11 +70,13 @@ public class TweenTest : MonoBehaviour
             }
             testObj.transform.localPosition = Vector3.zero;
             moveTween = testObj.transform.DoMove(new Vector3(300, 500, 0), 5);
-            moveTween.ease = Ease.EaseInOutSine;
-            moveTween.OnComplete = () => {
+            moveTween.ease = Ease.EaseOutSine;
+            moveTween.OnComplete = () =>
+            {
                 Debug.Log("tween move complete");
             };
-            moveTween.OnKill = () => {
+            moveTween.OnKill = () =>
+            {
                 Debug.Log("tween move kill");
             };
             moveTween.TweenStart();
@@ -96,11 +90,13 @@ public class TweenTest : MonoBehaviour
             }
             testObj.transform.localPosition = Vector3.zero;
             moveTween = testObj.transform.DoMove(new Vector3(300, 500, 0), 5);
-            moveTween.ease = Ease.EaseInBack;
-            moveTween.OnComplete = () => {
+            moveTween.ease = Ease.EaseInOutSine;
+            moveTween.OnComplete = () =>
+            {
                 Debug.Log("tween move complete");
             };
-            moveTween.OnKill = () => {
+            moveTween.OnKill = () =>
+            {
                 Debug.Log("tween move kill");
             };
             moveTween.TweenStart();
@@ -114,11 +110,13 @@ public class TweenTest : MonoBehaviour
             }
             testObj.transform.localPosition = Vector3.zero;
             moveTween = testObj.transform.DoMove(new Vector3(300, 500, 0), 5);
-            moveTween.ease = Ease.EaseOutBack;
-            moveTween.OnComplete = () => {
+            moveTween.ease = Ease.EaseInBack;
+            moveTween.OnComplete = () =>
+            {
                 Debug.Log("tween move complete");
             };
-            moveTween.OnKill = () => {
+            moveTween.OnKill = () =>
+            {
                 Debug.Log("tween move kill");
             };
             moveTween.TweenStart();
@@ -132,19 +130,41 @@ public class TweenTest : MonoBehaviour
             }
             testObj.transform.localPosition = Vector3.zero;
             moveTween = testObj.transform.DoMove(new Vector3(300, 500, 0), 5);
-            moveTween.ease = Ease.EaseInOutBack;
-            moveTween.OnComplete = () => {
+            moveTween.ease = Ease.EaseOutBack;
+            moveTween.OnComplete = () =>
+            {
                 Debug.Log("tween move complete");
             };
-            moveTween.OnKill = () => {
+            moveTween.OnKill = () =>
+            {
                 Debug.Log("tween move kill");
             };
             moveTween.TweenStart();
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.J))
         {
-            if(moveTween != null)
+            if (moveTween != null)
+            {
+                moveTween.TweenKill();
+            }
+            testObj.transform.localPosition = Vector3.zero;
+            moveTween = testObj.transform.DoMove(new Vector3(300, 500, 0), 5);
+            moveTween.ease = Ease.EaseInOutBack;
+            moveTween.OnComplete = () =>
+            {
+                Debug.Log("tween move complete");
+            };
+            moveTween.OnKill = () =>
+            {
+                Debug.Log("tween move kill");
+            };
+            moveTween.TweenStart();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            if (moveTween != null)
             {
                 moveTween.TweenKill();
             }
@@ -159,10 +179,12 @@ public class TweenTest : MonoBehaviour
             testObj.transform.localScale = Vector3.one;
             scaleTween = testObj.transform.DoScale(new Vector3(2, 2, 2), 5);
             scaleTween.ease = Ease.Linear;
-            scaleTween.OnComplete = () => {
+            scaleTween.OnComplete = () =>
+            {
                 Debug.Log("tween scale complete");
             };
-            scaleTween.OnKill = () => {
+            scaleTween.OnKill = () =>
+            {
                 Debug.Log("tween scale kill");
             };
             scaleTween.TweenStart();
@@ -177,10 +199,12 @@ public class TweenTest : MonoBehaviour
             testObj.transform.localScale = Vector3.one;
             scaleTween = testObj.transform.DoScale(new Vector3(2, 2, 2), 5);
             scaleTween.ease = Ease.EaseInSine;
-            scaleTween.OnComplete = () => {
+            scaleTween.OnComplete = () =>
+            {
                 Debug.Log("tween scale complete");
             };
-            scaleTween.OnKill = () => {
+            scaleTween.OnKill = () =>
+            {
                 Debug.Log("tween scale kill");
             };
             scaleTween.TweenStart();
@@ -195,10 +219,12 @@ public class TweenTest : MonoBehaviour
             testObj.transform.localScale = Vector3.one;
             scaleTween = testObj.transform.DoScale(new Vector3(2, 2, 2), 5);
             scaleTween.ease = Ease.EaseOutSine;
-            scaleTween.OnComplete = () => {
+            scaleTween.OnComplete = () =>
+            {
                 Debug.Log("tween scale complete");
             };
-            scaleTween.OnKill = () => {
+            scaleTween.OnKill = () =>
+            {
                 Debug.Log("tween scale kill");
             };
             scaleTween.TweenStart();
@@ -213,10 +239,12 @@ public class TweenTest : MonoBehaviour
             testObj.transform.localScale = Vector3.one;
             scaleTween = testObj.transform.DoScale(new Vector3(2, 2, 2), 5);
             scaleTween.ease = Ease.EaseInOutSine;
-            scaleTween.OnComplete = () => {
+            scaleTween.OnComplete = () =>
+            {
                 Debug.Log("tween scale complete");
             };
-            scaleTween.OnKill = () => {
+            scaleTween.OnKill = () =>
+            {
                 Debug.Log("tween scale kill");
             };
             scaleTween.TweenStart();
@@ -231,10 +259,12 @@ public class TweenTest : MonoBehaviour
             testObj.transform.localScale = Vector3.one;
             scaleTween = testObj.transform.DoScale(new Vector3(2, 2, 2), 5);
             scaleTween.ease = Ease.EaseInBack;
-            scaleTween.OnComplete = () => {
+            scaleTween.OnComplete = () =>
+            {
                 Debug.Log("tween scale complete");
             };
-            scaleTween.OnKill = () => {
+            scaleTween.OnKill = () =>
+            {
                 Debug.Log("tween scale kill");
             };
             scaleTween.TweenStart();
@@ -249,10 +279,12 @@ public class TweenTest : MonoBehaviour
             testObj.transform.localScale = Vector3.one;
             scaleTween = testObj.transform.DoScale(new Vector3(2, 2, 2), 5);
             scaleTween.ease = Ease.EaseOutBack;
-            scaleTween.OnComplete = () => {
+            scaleTween.OnComplete = () =>
+            {
                 Debug.Log("tween scale complete");
             };
-            scaleTween.OnKill = () => {
+            scaleTween.OnKill = () =>
+            {
                 Debug.Log("tween scale kill");
             };
             scaleTween.TweenStart();
@@ -267,13 +299,36 @@ public class TweenTest : MonoBehaviour
             testObj.transform.localScale = Vector3.one;
             scaleTween = testObj.transform.DoScale(new Vector3(2, 2, 2), 5);
             scaleTween.ease = Ease.EaseInOutBack;
-            scaleTween.OnComplete = () => {
+            scaleTween.OnComplete = () =>
+            {
                 Debug.Log("tween scale complete");
             };
-            scaleTween.OnKill = () => {
+            scaleTween.OnKill = () =>
+            {
                 Debug.Log("tween scale kill");
             };
             scaleTween.TweenStart();
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            if (scaleTween != null)
+            {
+                scaleTween.TweenKill();
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (moveTween != null)
+        {
+            moveTween.Clear();
+        }
+
+        if(scaleTween != null)
+        {
+            scaleTween.Clear();
         }
     }
 

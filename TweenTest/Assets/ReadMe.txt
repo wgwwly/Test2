@@ -1,0 +1,7 @@
+1、实现了简单的Tween效果DoMove、DoScale,提供了 OnComplete和OnKill回调
+2、实现Ease功能，提供了Linear，EaseInSine，EaseOutSine，EaseInOutSine，
+EaseInBack，EaseOutBack，EaseInOutBack
+3、提供了测试代码，按键A~J测试了DoMove各ease效果，按键Z测试了DoMove的kill
+按键Q~U测试了DoScale各ease效果，按键X测试了DoScale的kill
+4、测试代码会在DoMove执行不同效果时将localPosition设置为Vector3.zero,
+DoMove将localScale设置为Vector3.one

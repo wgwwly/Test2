@@ -20,20 +20,8 @@ public enum Ease
     EaseOutBack,
     EaseInOutBack
 }
-public abstract class TweenBase {
-
-    //// Use this for initialization
-    //void Start () {
-
-    //}
-
-    //// Update is called once per frame
-    //void Update () {
-
-    //}
-
-    //public abstract void ExtraMethod(string message);
-
+public abstract class TweenBase
+{
     public Transform cacheTran;
     public float duration;
     public float curTime;
@@ -43,13 +31,13 @@ public abstract class TweenBase {
     public Vector3 endValue;
     public Vector3 curToValue;
 
-    public float xBaseValue;
-    public float yBaseValue;
-    public float zBaseValue;
+    public float xMoveValue;
+    public float yMoveValue;
+    public float zMoveValue;
     /// <summary>
-    /// 自定义曲线
+    /// 设想按自定义曲线移动
     /// </summary>
-    public AnimationCurve curve = new AnimationCurve();
+    public AnimationCurve curve;
 
     public TweenCallback OnComplete;
     public TweenCallback OnKill;
@@ -81,10 +69,10 @@ public abstract class TweenBase {
     {
         float t = GetTime();
         //curToValue = new Vector3(fromValue.x + t * xBaseValue, fromValue.y + t * yBaseValue, fromValue.z + t * zBaseValue);
-        curToValue = new Vector3(Liner(t, xBaseValue, fromValue.x), Liner(t, yBaseValue, fromValue.y), Liner(t, zBaseValue, fromValue.z));
+        curToValue = new Vector3(Liner(t, xMoveValue, fromValue.x), Liner(t, yMoveValue, fromValue.y), Liner(t, zMoveValue, fromValue.z));
     }
 
-    float EaseInSine(float t, float baseValue,float fromValue)
+    float EaseInSine(float t, float baseValue, float fromValue)
     {
         //float t = GetTime();
         return -baseValue * Mathf.Cos(t / duration * (Mathf.PI / 2)) + baseValue + fromValue;
@@ -93,19 +81,19 @@ public abstract class TweenBase {
     {
         float t = GetTime();
 
-        curToValue = new Vector3(EaseInSine(t,xBaseValue, fromValue.x), EaseInSine(t, yBaseValue, fromValue.y), EaseInSine(t, zBaseValue, fromValue.z));
+        curToValue = new Vector3(EaseInSine(t, xMoveValue, fromValue.x), EaseInSine(t, yMoveValue, fromValue.y), EaseInSine(t, zMoveValue, fromValue.z));
     }
 
     float EaseOutSine(float t, float baseValue, float fromValue)
     {
-        
+
         return baseValue * Mathf.Sin(t / duration * (Mathf.PI / 2)) + fromValue;
     }
 
     public void EaseOutSine()
     {
         float t = GetTime();
-        curToValue = new Vector3(EaseOutSine(t,xBaseValue, fromValue.x), EaseOutSine(t,yBaseValue, fromValue.y), EaseOutSine(t,zBaseValue, fromValue.z));
+        curToValue = new Vector3(EaseOutSine(t, xMoveValue, fromValue.x), EaseOutSine(t, yMoveValue, fromValue.y), EaseOutSine(t, zMoveValue, fromValue.z));
     }
 
 
@@ -117,12 +105,12 @@ public abstract class TweenBase {
     public void EaseInOutSine()
     {
         float t = GetTime();
-        curToValue = new Vector3(EaseInOutSine(t, xBaseValue, fromValue.x), EaseInOutSine(t, yBaseValue, fromValue.y), EaseInOutSine(t, zBaseValue, fromValue.z));
+        curToValue = new Vector3(EaseInOutSine(t, xMoveValue, fromValue.x), EaseInOutSine(t, yMoveValue, fromValue.y), EaseInOutSine(t, zMoveValue, fromValue.z));
     }
 
-    float EaseInBack(float t, float baseValue, float fromValue,float s = 0)
+    float EaseInBack(float t, float baseValue, float fromValue, float s = 0)
     {
-        if(s == 0)
+        if (s == 0)
         {
             s = 1.70158f;
         }
@@ -133,7 +121,7 @@ public abstract class TweenBase {
     public void EaseInBack()
     {
         float t = GetTime();
-        curToValue = new Vector3(EaseInBack(t, xBaseValue, fromValue.x), EaseInBack(t, yBaseValue, fromValue.y), EaseInBack(t, zBaseValue, fromValue.z));
+        curToValue = new Vector3(EaseInBack(t, xMoveValue, fromValue.x), EaseInBack(t, yMoveValue, fromValue.y), EaseInBack(t, zMoveValue, fromValue.z));
     }
 
     float EaseOutBack(float t, float baseValue, float fromValue, float s = 0)
@@ -149,7 +137,7 @@ public abstract class TweenBase {
     public void EaseOutBack()
     {
         float t = GetTime();
-        curToValue = new Vector3(EaseOutBack(t, xBaseValue, fromValue.x), EaseOutBack(t, yBaseValue, fromValue.y), EaseOutBack(t, zBaseValue, fromValue.z));
+        curToValue = new Vector3(EaseOutBack(t, xMoveValue, fromValue.x), EaseOutBack(t, yMoveValue, fromValue.y), EaseOutBack(t, zMoveValue, fromValue.z));
     }
 
     float EaseInOutBack(float t, float baseValue, float fromValue, float s = 0)
@@ -159,7 +147,7 @@ public abstract class TweenBase {
             s = 1.70158f;
         }
         t = t / (duration / 2);
-        if(t < 1)
+        if (t < 1)
         {
             return baseValue / 2 * (t * t * (((s *= 1.525f) + 1) * t - s)) + fromValue;
         }
@@ -170,7 +158,7 @@ public abstract class TweenBase {
     public void EaseInOutBack()
     {
         float t = GetTime();
-        curToValue = new Vector3(EaseInOutBack(t, xBaseValue, fromValue.x), EaseInOutBack(t, yBaseValue, fromValue.y), EaseInOutBack(t, zBaseValue, fromValue.z));
+        curToValue = new Vector3(EaseInOutBack(t, xMoveValue, fromValue.x), EaseInOutBack(t, yMoveValue, fromValue.y), EaseInOutBack(t, zMoveValue, fromValue.z));
     }
 
     public float GetEaseTime()
@@ -233,10 +221,27 @@ public abstract class TweenBase {
         }
     }
 
-    public void Clear()
+    public bool IsTweenEnd()
+    {
+        if(!isStart && isEnd)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void Clear(bool isRemove = true)
     {
         cacheTran = null;
         OnComplete = null;
         OnKill = null;
+        curve = null;
+        isStart = false;
+        isEnd = false;
+        if(isRemove)
+        {
+            TweenManager.Instance.RemoveTween(this);
+        }
+        
     }
 }
